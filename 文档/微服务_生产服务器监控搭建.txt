@@ -1,0 +1,101 @@
+第一部分：ELK
+
+1、filebeat
+
+filebeat需要在每一台服务器上安装（），收集具体服务打印的业务日志，具体路径：/appdata/data/*/*.json
+
+并把日志发送到elasticsearch（）进行保存
+
+安装路径：/opt/filebeat/filebeat-6.3.2-linux-x86_64/
+
+主要配置文件：/opt/filebeat/filebeat-6.3.2-linux-x86_64/fileds.yml
+
+/opt/filebeat/filebeat-6.3.2-linux-x86_64/filebeat.yml
+
+启动相关指令：
+
+cd /opt/filebeat/filebeat-6.3.2-linux-x86_64
+
+nohup ./filebeat -e -c filebeat.yml&
+
+ 
+
+2、elasticsearch
+
+安装位置仅安装在  占用端口    
+
+安装路径： /DATA1/ELK/elasticsearch-6.5.2/
+
+主要配置文件： /DATA1/ELK/elasticsearch-6.5.2/config/elasticsearch.yml
+
+/DATA1/ELK/elasticsearch-6.5.2/config/jvm.options
+
+启动相关指令：
+
+su elk
+
+/DATA1/ELK/elasticsearch-6.5.2/bin/elasticsearch&
+
+重要操作：
+
+2.1、查看当前节点的所有 Index
+http://**/_cat/indices?v&s=index
+2.2、删除Index curl -X DELETE 'http://ip:port/filebeat-6.5.2-2018.08.21'
+
+2.3、定时任务，删除index
+
+定时任务脚本路径：/DATA1/ELK/autoDeleteESData.sh   
+
+目前配置的是删除14天前的数据，后面可以随时调整。
+
+ 
+
+3、kibana
+
+kibana仅安装在ip   占用端口    port
+
+安装路径：  /DATA1/ELK/kibana-6.5.2-linux-x86_64/
+
+主要配置文件：/DATA1/ELK/kibana-6.5.2-linux-x86_64/config/kibana.yml
+
+启动相关指令：/DATA1/ELK/kibana-6.5.2-linux-x86_64/bin/kibana&
+
+ 
+
+第二部分：TIG
+
+1、telegraf
+
+telegraf需要在每一台应用服务器上安装（），用于收集监控相关的日志，目前只收集网关打印的日志，jiankong-*.log
+
+并把收集到的日志发动到influxdb（10.5.88.69:8580）进行保存
+
+安装路径：  /home/ELK/telegraf/etc/telegraf/
+
+主要配置文件：/home/ELK/telegraf/etc/telegraf/telegraf.conf
+
+启动相关指令：
+
+/home/ELK/telegraf/usr/bin/telegraf -config /home/ELK/telegraf/etc/telegraf/telegraf.conf&
+
+ 
+
+2、influxdb
+
+influxdb仅安装在ip   占用端口    port
+
+启动相关指令：
+
+/usr/bin/influxd -config /etc/influxdb/influxdb.conf&
+
+ 
+
+3、grafana
+
+grafana仅安装在ip   占用端口    port
+
+主要配置文件：/etc/grafana/grafana.ini
+
+启动相关指令：
+
+service grafana-server start
