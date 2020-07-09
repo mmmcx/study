@@ -1,0 +1,34 @@
+redis操作指南：
+
+	string类型操作：
+		set key value  						设置key对应的值为string类型的value
+		mset key1 value1 ...keyN valueN 	一次设置多个key的值
+		mget key1 key2 ...keyN           	一次获取多个key的值
+		incr key							对key的值做加加操作，并返回新的值
+		decr key							对key的值做减减操作，并返回新的值
+		incrby key integer					对key的值做加指定值
+		decrby key integer					对key的值做减指定值
+		append key value					给指定key的字符串追加value
+		substr key start end				返回截取过的key的字符串
+	list类型操作
+		lpush key string					在key对应list的头部添加字符串元素
+		rpop key							从list的尾部删除元素，并返回删除元素
+		llen key 返回key					对应list的长度，key不存在返回0，如果key对应类型不是list 返回错误
+		lrange key start end				返回指定区间内的元素，下标从0开始
+		rpush key string					在key对应list的尾部添加字符串元素
+		lpop key							从list的头部删除元素，并返回元素
+		ltrim key start end					截取list，保留指定区间内元素
+	set类型操作
+		sadd key member						添加一个string元素到key对应的set集合中，成功返回1，如果元素已经在集合中返回0，key对应的set不存在返回错误
+		srem key member [member]			从key对应set中移除给定元素，成功返回1
+		smove p1 p2 member					从p1对应set中移除member并添加到p2对应set中
+		scard key 							返回set元素的个数
+		sismember key member				判断member是否在set中
+		sinter key1 key2...keyN				返回所有给定key的交集
+		sunion key1 key2...keyN				返回所有给定key的并集
+		sdiff key1 key2...keyN				返回所有给定key的差集
+		smembers key						返回key对应set的所有元素，结果是无序的
+		
+		
+		
+		
