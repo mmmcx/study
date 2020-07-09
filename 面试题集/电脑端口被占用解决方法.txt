@@ -1,0 +1,3 @@
+netstat -aon|findstr "49157"
+tasklist|findstr "2720"
+taskkill /f /t /im svchost.exe
