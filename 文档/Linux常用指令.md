@@ -314,6 +314,17 @@ tasklist|findstr "2720"
 
 taskkill /f /t /im Tencentdl.exe
 ```
+> 查看某个进程是否存在
+```shell
+ps -ef | grep 进程名 | grep -v "grep" | wc -l
+```
+> ps -ef 指令用来查询所有进程，grep通过管道来过滤。grep -v 是反向查询的意思，grep -v grep的作用是除去包含grep的项
+> wc -l 标示统计查询到的结果数量
+```shell
+kill -9 `ps -ef|grep cpu|grep -v grep|awk '{print $2}'`
+```
+> ps -ef|grep cpu会把grep cpu的进程也统计进来，因此用ps -ef|grep cpu|grep -v grep去除grep进程
 
+> 最后，只包含cpu关键字的进程筛选结果作为输入给awk '{print $2}'，这个部分的作用是提取输入的第二列，而第二列正是进程的PID
 
 
