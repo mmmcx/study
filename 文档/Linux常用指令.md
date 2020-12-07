@@ -302,6 +302,7 @@ du -lh --max-depth=1 : 查看当前目录下一级子文件和子目录占用的
 
 du -sh * | sort -n 统计当前文件夹(目录)大小，并按文件大小排序
 du -sk filename 查看指定文件大小
+lsof -n | grep filename 查看没有删除了没有释放磁盘空间
 ```
 
 
