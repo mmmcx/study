@@ -248,6 +248,22 @@ public class TestJava8 {
         Map<Boolean, List<Product>> partion = pros.stream()
                 .collect(Collectors.partitioningBy(p -> p.getAge() < 20));
         partion.forEach((k,v) -> System.out.println(k+"--"+v));
+        
+        System.out.println("join ------------------------------------------------");
+        //join操作
+        String joinStr = pros.stream()
+                .map(Product::getName)
+                .collect(Collectors.joining());
+        System.out.println("连接字符串: " + joinStr);
+        String joinStr2 = pros.stream()
+                .map(Product::getName)
+                .collect(Collectors.joining(","));
+        System.out.println("逗号分割："+ joinStr2);
+        String joinStr3 = pros.stream()
+                .map(Product::getName)
+                .collect(Collectors.joining(",", "{", "}"));
+        System.out.println("添加前后缀："+joinStr3);
+        System.out.println("------------------------------------");
 
     }
 
