@@ -97,6 +97,8 @@ docker rmi $(docker images -f “dangling=true” -q)或者docker image prune -a
 交互的方式进入容器  ：docker exec -it 容器id bash
 
 交互的方式前启动容器 docker run -it tomcat bash
+清理overlay2:
+docker system prune -a命令清理得更加彻底，可以将没有容器使用Docker镜像都删掉
 ```
 
 **5.镜像制作**
