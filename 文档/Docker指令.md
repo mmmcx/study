@@ -284,7 +284,7 @@ volumes:
 docker exec gitlab gitlab-rake gitlab:backup:create
 ```
 **自动备份脚本 gitlab_backup.sh**
-```
+```shell
 #! /bin/bash
 case "$1" in 
     "start")
@@ -294,13 +294,13 @@ esac
 
 ```
 执行该脚本即可实现备份gitlab数据 执行命令：
-``
+``shell
 sh gitlab_backup.sh start
 ```
 注意：需要定时器才能实现定时备份
 
 **还原备份**
-```
+```shell
 
 gitlab-rake gitlab:backup:restore BACKUP=备份的文件名
 ```
