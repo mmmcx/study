@@ -300,14 +300,14 @@ sh gitlab_backup.sh start
 注意：需要定时器才能实现定时备份
 
 **还原备份**
-```shell
 
+```shell
 gitlab-rake gitlab:backup:restore BACKUP=备份的文件名
 ```
 参考：
-[](https://www.cnblogs.com/isyefeng/p/11906925.html)
-[](https://blog.csdn.net/u014258541/article/details/79317180)
-[](https://blog.csdn.net/anron/article/details/107426696?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.control)
+[gitlab自动备份并挂载到Windows目录](https://www.cnblogs.com/isyefeng/p/11906925.html)
+[gitlab自动备份](https://blog.csdn.net/u014258541/article/details/79317180)
+[gitlab自动备份及还原](https://blog.csdn.net/anron/article/details/107426696?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.control)
 
 ##### docker搭建nexus服务
 
