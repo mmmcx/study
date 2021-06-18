@@ -305,6 +305,7 @@ sh gitlab_backup.sh start
 gitlab-rake gitlab:backup:restore BACKUP=备份的文件名
 ```
 参考：
+
 [gitlab自动备份并挂载到Windows目录](https://www.cnblogs.com/isyefeng/p/11906925.html)
 
 [gitlab自动备份](https://blog.csdn.net/u014258541/article/details/79317180)
