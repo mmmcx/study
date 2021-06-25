@@ -314,6 +314,16 @@ gitlab-rake gitlab:backup:restore BACKUP=备份的文件名
 
 [gitlab自动备份及还原](https://blog.csdn.net/anron/article/details/107426696?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-5.control)
 
+**重置gitlab管理员登录名**
+```shell
+进入容器docker exec -it <容器id> bash
+执行gitlab-rails console -e production
+user = User.where(username: ‘root’).first
+user.password = ‘password’
+user.save!
+```
+
+
 ##### docker搭建nexus服务
 
 > 拉取镜像：docker pull sonatype/nexus3
