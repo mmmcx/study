@@ -507,6 +507,17 @@ chmod 777 nginx_check.sh
 ```
 
 
+**worker 数和服务器的cpu数相等是最为适合的**
+> 连接数:worker_connection
+> 发送一个请求，占用了worker的几个连接数？
+> 2个或4个
+
+> nginx有一个master ，4个worker，每个worker支持的最大连接数1024，支持的最大并发数是多少？
+> - 普通静态访问最大并发数是： worker_connections * work_process/2;
+> - 而如果是http作为反向代理来说，最大并发数量是 worker_connections * worker_process/4
+
+
+
 
 
 
