@@ -518,7 +518,8 @@ chmod 777 nginx_check.sh
 
 ### 七、升级nginx版本，且nginx不停机
 > 两种解决方案
-> 1、使用nginx服务信号完成nginx的升级
+
+**1、使用nginx服务信号完成nginx的升级**
 
 > 第一步：将低版本的sbin目录下的nginx进行备份，以便升级失败进行回滚
 ```shell
@@ -539,7 +540,22 @@ kill -USER2 `more /usr/local/logs/nginx.pid`
 kill -QUIT `more /usr/local/logs/nginx.pid.oldbin`
 ```
 
-> 2、使用nginx安装目录的make命令完成升级
+**2、使用nginx安装目录的make命令完成升级**
+> 第一步，对低版本sbin目录下的nginx进行备份
+```shell
+cd /usr/local/nginx/sbin
+mv nginx nginxold
+```
+> 第二步：将高版本安装目录编译编译后的objs目录下的nginx文件，拷贝到原来/usr/local/nginx/sbin目录下
+```shell
+cd ~/nginx/core/nginx-高版本号/objs
+cp nginx /usr/local/nginx/sbin
+```
+> 第三步：进入安装目录，执行make upgrade
+> 第四步：查看是否更细成功
+```shell
+./nginx -v
+```
 
 
 
