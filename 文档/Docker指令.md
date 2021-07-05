@@ -322,6 +322,104 @@ user = User.where(username: ‘root’).first
 user.password = ‘password’
 user.save!
 ```
+##### 构建gitlab-runner，实现持续交付
+
+** 1.创建environment目录 **
+```shell
+mkdir /usr/local/docker/runner/environment
+
+```
+** 2.创建daemon.json文件**
+```shell
+vim daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "registry-mirrors": [
+    "https://k7da99jp.mirror.aliyuncs.com/",
+    "https://1zcopfh1.mirror.aliyuncs.com",
+    "https://registry.docker-cn.com"
+  ],
+  "storage-driver": "overlay2"
+}
+
+
+```
+** 3.创建Dockerfile文件**
+```shell
+vim Dockerfile
+
+FROM gitlab/gitlab-runner:v11.0.2
+MAINTAINER cx <cx@qq.com>
+
+# 修改软件源
+RUN echo 'deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse' > /etc/apt/sources.list && \
+    echo 'deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse' >> /etc/apt/sources.list && \
+    echo 'deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse' >> /etc/apt/sources.list && \
+    echo 'deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse' >> /etc/apt/sources.list && \
+    apt-get update -y && \
+    apt-get clean
+
+# 安装 Docker
+RUN apt-get -y install apt-transport-https ca-certificates curl software-properties-common && \
+    curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable" && \
+    apt-get update -y && \
+    apt-get install -y docker-ce
+COPY daemon.json /etc/docker/daemon.json
+
+# 安装 Docker Compose
+WORKDIR /usr/local/bin
+RUN wget  https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+#  https://raw.githubusercontent.com/topsale/resources/master/docker/docker-compose
+RUN chmod +x docker-compose
+
+# 安装 Java
+RUN mkdir -p /usr/local/java
+WORKDIR /usr/local/java
+COPY jdk-8u152-linux-x64.tar.gz /usr/local/java
+RUN tar -zxvf jdk-8u152-linux-x64.tar.gz && \
+    rm -fr jdk-8u152-linux-x64.tar.gz
+
+# 安装 Maven
+RUN mkdir -p /usr/local/maven
+WORKDIR /usr/local/maven
+RUN wget https://raw.githubusercontent.com/topsale/resources/master/maven/apache-maven-3.5.3-bin.tar.gz
+# COPY apache-maven-3.5.3-bin.tar.gz /usr/local/maven
+RUN tar -zxvf apache-maven-3.5.3-bin.tar.gz && \
+    rm -fr apache-maven-3.5.3-bin.tar.gz
+# COPY settings.xml /usr/local/maven/apache-maven-3.5.3/conf/settings.xml
+
+# 配置环境变量
+ENV JAVA_HOME /usr/local/java/jdk1.8.0_152
+ENV MAVEN_HOME /usr/local/maven/apache-maven-3.5.3
+ENV PATH $PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin
+
+WORKDIR /
+
+
+```
+** 4.gitliab-runner docker-compose.yml文件如下：**
+
+```shell
+version: '3.1'
+services:
+  gitlab-runner:
+    build: environment
+    restart: always
+    container_name: gitlab-runner
+    privileged: true
+    volumes:
+      - /usr/local/docker/runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+
+```
+
+
+
 
 ##### docker-compose 搭建jenkins
 
