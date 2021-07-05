@@ -324,12 +324,12 @@ user.save!
 ```
 ##### 构建gitlab-runner，实现持续交付
 
-** 1.创建environment目录 **
+**1.创建environment目录 **
 ```shell
 mkdir /usr/local/docker/runner/environment
 
 ```
-** 2.创建daemon.json文件**
+**2.创建daemon.json文件**
 ```shell
 vim daemon.json
 {
@@ -348,7 +348,7 @@ vim daemon.json
 
 
 ```
-** 3.创建Dockerfile文件**
+**3.创建Dockerfile文件**
 ```shell
 vim Dockerfile
 
@@ -402,7 +402,7 @@ WORKDIR /
 
 
 ```
-** 4.gitliab-runner docker-compose.yml文件如下：**
+**4.gitliab-runner docker-compose.yml文件如下：**
 
 ```shell
 version: '3.1'
