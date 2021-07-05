@@ -323,6 +323,37 @@ user.password = ‘password’
 user.save!
 ```
 
+##### docker-compose 搭建jenkins
+
+```shell
+version: '3.7'
+services:
+    jenkins:
+        image: jenkins/jenkins:lts
+        container_name: jenkins
+        environment:
+            - TZ=Asia/Shanghai
+        volumes:
+            - /usr/local/jenkins/jenkins_home:/var/jenkins_home 
+            - /usr/local/jenkins/java/jdk1.8.0_152:/usr/local/java # 将本地Java目录挂载在容器中
+            - /usr/local/jenkins/maven/apache-maven-3.6.1:/usr/local/maven  # 将本地maven挂载到容器中，不然在Jenkins配置maven是会报找不到/usr/local/jdk1.8.0_191/ is not a directory #on the Jenkins master (but perhaps it exists on some agents)
+
+
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /usr/bin/docker:/usr/bin/docker
+            - /usr/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+        ports:
+            - "8080:8080"
+        expose:
+            - "8080"
+            - "50000"
+        privileged: true
+        user: root
+        restart: always
+
+```
+
+
 
 ##### docker搭建nexus服务
 
