@@ -324,7 +324,8 @@ user.save!
 ```
 ##### 构建gitlab-runner，实现持续交付
 
-**1.创建environment目录 **
+**1.创建environment目录**
+
 ```shell
 mkdir /usr/local/docker/runner/environment
 
