@@ -519,6 +519,7 @@ chmod 777 nginx_check.sh
 ### 七、升级nginx版本，且nginx不停机
 > 两种解决方案
 > 1、使用nginx服务信号完成nginx的升级
+
 > 第一步：将低版本的sbin目录下的nginx进行备份，以便升级失败进行回滚
 ```shell
 cd /usr/local/nginx/sbin
