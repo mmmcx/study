@@ -205,7 +205,11 @@ worker_processes  1;
 
 
 events {
-    worker_connections  1024;
+
+    accept_mutex on; #解决惊群问题
+    multi_accept on; #设置work进程同时可以接收多个请求
+    worker_connections  1024; #worker进程最大连接数
+    use epoll;#使用epoll驱动
 }
 
 
