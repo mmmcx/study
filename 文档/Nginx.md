@@ -516,6 +516,30 @@ chmod 777 nginx_check.sh
 > - 普通静态访问最大并发数是： worker_connections * work_process/2;
 > - 而如果是http作为反向代理来说，最大并发数量是 worker_connections * worker_process/4
 
+### 七、升级nginx版本，且nginx不停机
+> 两种解决方案
+> 1、使用nginx服务信号完成nginx的升级
+> 第一步：将低版本的sbin目录下的nginx进行备份，以便升级失败进行回滚
+```shell
+cd /usr/local/nginx/sbin
+mv nginx nginxold
+```
+> 第二步：将高版本目录编译后的objs目录下的nginx文件，拷贝到原来/usr/local/nginx/sbin
+```shell
+cd ~/nginx/core/nginx-版本号/objs
+cp nginx /usr/local/nginx/sbin
+```
+> 第三步：发送信号USR2 给nginx的低版本对应的master进程
+```shell
+kill -USER2 `more /usr/local/logs/nginx.pid`
+```
+> 第四步：发送信号QUIT给nginx的低版本对应的master进程
+```shell
+kill -QUIT `more /usr/local/logs/nginx.pid.oldbin`
+```
+
+> 2、使用nginx安装目录的make命令完成升级
+
 
 
 
