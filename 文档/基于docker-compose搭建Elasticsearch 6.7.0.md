@@ -154,7 +154,7 @@ http.cors.allow-origin: "*"
 
 # 所有主从节点ip:port
 discovery.zen.ping.unicast.hosts: ["es-node1:9300","es-node2:9301","es-node3:9302"]
-# 这个参数决定了在选主过程中需要 有多少个节点通信  预防脑裂 N/2+1
+# 这个参数决定了在选主过程中需要 有多少个节点通信  预防脑裂 N/2+1 N为主节点个数 ，即有资格成为主节点的节点个数
 discovery.zen.minimum_master_nodes: 1
 
 
