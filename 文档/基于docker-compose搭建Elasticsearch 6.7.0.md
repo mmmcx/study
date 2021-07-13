@@ -227,11 +227,14 @@ es-node2 analysis-ik 6.7.2
 ```
 > 测试中文分词器
 > 使用postman get 请求 http://192.168.5.102:9200/_analyze
-```shell
+```yaml
+# ik_max_word : 会将文本做最细粒度的拆分
+# ik_smart: 会将文本做最粗粒度的拆分
+
 # 请求参数：JSON格式
 {
     "text":"测试单词",
-    "analyzer":"ik_max_word"
+    "analyzer":"ik_max_word" 
 }
 # 结果：
 {
