@@ -217,6 +217,45 @@ unzip xxx.zip
 #修改docker-compose.yml文件，将ik目录挂载进容器，修改后的见上面的yml文件
 
 ```
+> 访问 http://192.168.5.102:9200/_cat/plugins 验证插件
+> 出现下面，则表示安装成功
+
+```yaml
+es-node1 analysis-ik 6.7.2
+es-node3 analysis-ik 6.7.2
+es-node2 analysis-ik 6.7.2
+```
+> 测试中文分词器
+> 使用postman get 请求 http://192.168.5.102:9200/_analyze
+```shell
+# 请求参数：JSON格式
+{
+    "text":"测试单词",
+    "analyzer":"ik_max_word"
+}
+# 结果：
+{
+    "tokens": [
+        {
+            "token": "测试",
+            "start_offset": 0,
+            "end_offset": 2,
+            "type": "CN_WORD",
+            "position": 0
+        },
+        {
+            "token": "单词",
+            "start_offset": 2,
+            "end_offset": 4,
+            "type": "CN_WORD",
+            "position": 1
+        }
+    ]
+}
+
+
+```
+
 
 
 
