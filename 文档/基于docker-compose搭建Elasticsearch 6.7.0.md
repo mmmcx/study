@@ -37,6 +37,8 @@ services:
     volumes:
       - ./config/es1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./data1:/usr/share/elasticsearch/data
+      - ./plugins:/usr/share/elasticsearch/plugins
+
     ports:
       - 9200:9200
       - 9300:9300
@@ -56,6 +58,8 @@ services:
     volumes:
       - ./config/es2.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./data2:/usr/share/elasticsearch/data
+      - ./plugins:/usr/share/elasticsearch/plugins
+
     ports:
       - 9201:9201
       - 9301:9301
@@ -79,6 +83,8 @@ services:
     volumes:
       - ./config/es3.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./data3:/usr/share/elasticsearch/data
+      - ./plugins:/usr/share/elasticsearch/plugins
+
     ports:
       - 9202:9202
       - 9302:9302
@@ -193,6 +199,23 @@ http.cors.allow-origin: "*"
 
 discovery.zen.ping.unicast.hosts: ["es-node1:9300","es-node2:9301","es-node3:9302"]
 discovery.zen.minimum_master_nodes: 1
+```
+
+> 安装ik中文分词器插件
+```shell
+# 创建plugins目录
+mkdir /usr/local/docker/es/plugins
+#创建ik目录
+mkdir /usr/local/docker/es/plugins/ik
+
+
+#使用wget下载ik插件
+cd /usr/local/docker/es/plugins/ik
+wget https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.7.2/elasticsearch-analysis-ik-6.7.2.zip
+# 解压文件
+unzip xxx.zip
+#修改docker-compose.yml文件，将ik目录挂载进容器，修改后的见上面的yml文件
+
 ```
 
 
