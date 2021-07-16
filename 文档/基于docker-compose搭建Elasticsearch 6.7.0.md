@@ -96,6 +96,22 @@ services:
     restart: always
     ports:
       - 9100:9100
+      
+    volumes:
+        # es 7增加了请求头严格校验，需将contentType 设置为application/json;charset=UTF-8
+        #找到vendor.js，修改文件里的两处：
+        #1、6886行
+        #contentType: "application/x-www-form-urlencoded
+        #改成
+        #contentType: “application/json;charset=UTF-8”
+        #
+        #2、7573行
+        #var inspectData = s.contentType === “application/x-www-form-urlencoded” &&
+        #改成
+        #var inspectData = s.contentType === “application/json;charset=UTF-8” &&
+        #
+       - ./vendor.js:/usr/src/app/_site/vendor.js
+
   cerebro:
     image: lmenezes/cerebro:0.8.3
     container_name: cerebro
@@ -259,8 +275,11 @@ es-node2 analysis-ik 6.7.2
 
 ```
 
+## 使用docker cp 将容器中文件拷贝中本机中修改，将修改后的文件挂载到容器中
+```shell
 
-
+docker cp es-head:/usr/src/app/_site/vendor.js /data/head/vendor.js
+```
 
 ## 备注
 
