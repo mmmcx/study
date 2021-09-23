@@ -1,6 +1,13 @@
 ## ElasticSearch 操作
 
+### _cat
 
+```
+ GET /_cat/nodes    # 查看所有节点
+ GET /_cat/health   # 查看es健康状况
+ GET /_cat/master   # 查看主节点
+ GET /_cat/indices  # 查看所有索引 
+```
 
 ### 创建空索引
 
