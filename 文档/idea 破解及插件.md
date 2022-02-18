@@ -28,9 +28,9 @@
 
 > 修改下载的插件包下的config目录中的MyMap文件可修改激活时间
 
-![](img\操作步骤3.jpg)
+![](https://github.com/mmmcx/study/blob/master/%E6%96%87%E6%A1%A3\img\操作步骤3.jpg)
 
 ### 2.3 打开idea到插件包的网址复制激活码到idea中进行激活
 
-![](img\操作步骤4.jpg)
+![](https://github.com/mmmcx/study/blob/master/%E6%96%87%E6%A1%A3\img\操作步骤4.jpg)
 
