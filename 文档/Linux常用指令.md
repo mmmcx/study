@@ -2,6 +2,101 @@
 
 ### Linux常用指令
 
+## [#](https://www.funtl.com/zh/service-mesh-kubernetes/安装前的准备.html#修改主机名)修改主机名
+
+在同一局域网中主机名不应该相同，所以我们需要做修改，下列操作步骤为修改 **18.04** 版本的 Hostname，如果是 16.04 或以下版本则直接修改 `/etc/hostname` 里的名称即可
+
+**查看当前 Hostname**
+
+```bash
+# 查看当前主机名
+hostnamectl
+# 显示如下内容
+   Static hostname: ubuntu
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: 33011e0a95094672b99a198eff07f652
+           Boot ID: dc856039f0d24164a9f8a50c506be96d
+    Virtualization: vmware
+  Operating System: Ubuntu 18.04.2 LTS
+            Kernel: Linux 4.15.0-48-generic
+      Architecture: x86-64
+```
+
+**修改 Hostname**
+
+```bash
+# 使用 hostnamectl 命令修改，其中 kubernetes-master 为新的主机名
+hostnamectl set-hostname kubernetes-master
+```
+
+**修改 cloud.cfg**
+
+如果 `cloud-init package` 安装了，需要修改 `cloud.cfg` 文件。该软件包通常缺省安装用于处理 cloud
+
+```bash
+# 如果有该文件
+vi /etc/cloud/cloud.cfg
+
+# 该配置默认为 false，修改为 true 即可
+preserve_hostname: true
+```
+
+**验证**
+
+```bash
+root@kubernetes-master:~# hostnamectl
+   Static hostname: kubernetes-master
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: 33011e0a95094672b99a198eff07f652
+           Boot ID: 8c0fd75d08c644abaad3df565e6e4cbd
+    Virtualization: vmware
+  Operating System: Ubuntu 18.04.2 LTS
+            Kernel: Linux 4.15.0-48-generic
+      Architecture: x86-64
+```
+## [#](https://www.funtl.com/zh/service-mesh-kubernetes/配置网络.html#附：配置固定-ip-和-dns)附：配置固定 IP 和 DNS
+
+当关机后再启动虚拟机有时 IP 地址会自动更换，导致之前的配置不可用；配置完 Kubernetes 网络后虚拟机还会出现无法联网的情况，后经研究发现是 DNS 会被自动重写所致，Ubuntu Server 18.04 LTS 版本的 IP 和 DNS 配置也与之前的版本配置大相径庭，故在此说明下如何修改 IP 和 DNS
+
+### [#](https://www.funtl.com/zh/service-mesh-kubernetes/配置网络.html#修改固定-ip)修改固定 IP
+
+编辑 `vi /etc/netplan/50-cloud-init.yaml` 配置文件，注意这里的配置文件名未必和你机器上的相同，请根据实际情况修改。修改内容如下：
+
+```yaml
+network:
+    ethernets:
+        ens33:
+          addresses: [192.168.141.134/24]
+          gateway4: 192.168.141.2
+          nameservers:
+            addresses: [192.168.141.2]
+    version: 2
+```
+
+使配置生效 `netplan apply`
+
+### [#](https://www.funtl.com/zh/service-mesh-kubernetes/配置网络.html#修改-dns)修改 DNS
+
+#### [#](https://www.funtl.com/zh/service-mesh-kubernetes/配置网络.html#方法一)方法一
+
+- 停止 `systemd-resolved` 服务：`systemctl stop systemd-resolved`
+- 修改 DNS：`vi /etc/resolv.conf`，将 `nameserver` 修改为如 `114.114.114.114` 可以正常使用的 DNS 地址
+
+#### [#](https://www.funtl.com/zh/service-mesh-kubernetes/配置网络.html#方法二)方法二
+
+```bash
+vi /etc/systemd/resolved.conf
+```
+
+把 DNS 取消注释，添加 DNS，保存退出，重启即可
+
+![img](https://www.funtl.com/assets1/Lusifer_20190602201826.png)
+
+
+
+
 ```shell
 Opssh
 
