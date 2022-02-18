@@ -12,7 +12,7 @@
 
 网站图片如下：
 
-<img src="\img\jetbra.in.jpg" style="zoom:50%;" />
+<img src="img\jetbra.in.jpg" style="zoom:50%;" />
 
 
 
