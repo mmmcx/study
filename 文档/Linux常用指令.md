@@ -277,6 +277,25 @@ mysql
 授权root用户允许所有人连接
 
  grant all privileges on *.* to ‘root’@’%’ identified by ‘密码’ 
+ 
+ # 查询慢查询次数
+show status like 'slow_queries'
+# 查看慢查询
+show variables like 'long_query_time'
+# 设置慢查询时间
+set long_query_time =1
+# 开启慢日志
+set CLOBAL slow_query_log=on
+# 模糊查找query相关设置
+show variables like '%query%'
+# 用于查看存在分区的表的执行计划
+explan partitions [具体sql语句]
+# 查看当前服务器配置的最大连接数
+show variables like 'max_connections'
+# 设置最大连接数
+set GLOBAL max_connections=10
+# 查看当前已使用最大连接数
+show GLOBAL status like '%max_used_connections%'
 
  
 ```
