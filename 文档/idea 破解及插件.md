@@ -4,7 +4,7 @@
 
 [idea 官网](https://www.jetbrains.com/idea/download/#section=windows)
 
-<img src="C:\Users\John\Desktop\idea破解相关\img\idea官网.jpg" style="zoom:40%;" />
+<img src="img\idea官网.jpg" style="zoom:40%;" />
 
 ## 2.下载破解插件 
 
@@ -18,19 +18,19 @@
 
 ### 2.1 打开下载的破解包，并执行
 
-![](C:\Users\John\Desktop\idea破解相关\img\操作步骤.jpg)
+![](img\操作步骤.jpg)
 
 ### 2.2 修改idea vmoptions
 
-![](C:\Users\John\Desktop\idea破解相关\img\操作步骤2.jpg)
+![](img\操作步骤2.jpg)
 
 **注意：**
 
 > 修改下载的插件包下的config目录中的MyMap文件可修改激活时间
 
-![](C:\Users\John\Desktop\idea破解相关\img\操作步骤3.jpg)
+![](img\操作步骤3.jpg)
 
 ### 2.3 打开idea到插件包的网址复制激活码到idea中进行激活
 
-![](C:\Users\John\Desktop\idea破解相关\img\操作步骤4.jpg)
+![](img\操作步骤4.jpg)
 
