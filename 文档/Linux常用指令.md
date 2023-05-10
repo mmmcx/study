@@ -441,5 +441,10 @@ kill -9 `ps -ef|grep cpu|grep -v grep|awk '{print $2}'`
 > ps -ef|grep cpu会把grep cpu的进程也统计进来，因此用ps -ef|grep cpu|grep -v grep去除grep进程
 
 > 最后，只包含cpu关键字的进程筛选结果作为输入给awk '{print $2}'，这个部分的作用是提取输入的第二列，而第二列正是进程的PID
+> #查看消费者列表
+kafka-consumer-groups.sh --bootstrap-server 172.16.13.1:9092 --list
+
+#产看消费进度（CURRENT-OFFSET）、消息进度（LOG-END-OFFSET）、落后量（LAG）
+kafka-consumer-groups.sh --bootstrap-server 172.16.12.1:9092 --describe --group group1
 
 
