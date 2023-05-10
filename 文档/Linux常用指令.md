@@ -444,7 +444,9 @@ kill -9 `ps -ef|grep cpu|grep -v grep|awk '{print $2}'`
 > #查看消费者列表
 kafka-consumer-groups.sh --bootstrap-server 172.16.13.1:9092 --list
 
-#产看消费进度（CURRENT-OFFSET）、消息进度（LOG-END-OFFSET）、落后量（LAG）
+> 产看消费进度（CURRENT-OFFSET）、消息进度（LOG-END-OFFSET）、落后量（LAG）
+``` shell
 kafka-consumer-groups.sh --bootstrap-server 172.16.12.1:9092 --describe --group group1
+```
 
 
