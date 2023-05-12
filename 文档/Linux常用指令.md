@@ -448,5 +448,5 @@ kafka-consumer-groups.sh --bootstrap-server 172.16.13.1:9092 --list
 ``` shell
 kafka-consumer-groups.sh --bootstrap-server 172.16.12.1:9092 --describe --group group1
 ```
-
+> idea常用插件 https://zhuanlan.zhihu.com/p/424414647?utm_medium=social&utm_oi=680029265685385216
 
