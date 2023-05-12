@@ -447,6 +447,8 @@ kafka-consumer-groups.sh --bootstrap-server 172.16.13.1:9092 --list
 > 产看消费进度（CURRENT-OFFSET）、消息进度（LOG-END-OFFSET）、落后量（LAG）
 ``` shell
 kafka-consumer-groups.sh --bootstrap-server 172.16.12.1:9092 --describe --group group1
+#重置消费偏移量 将指定主题指定消费组的偏移移动到最新
+kafka-consumer-groups.sh --bootstrap-server ip:port --group groupName --reset-offsets --topic topicName --to-latest --execute
 ```
 > idea常用插件 https://zhuanlan.zhihu.com/p/424414647?utm_medium=social&utm_oi=680029265685385216
 
